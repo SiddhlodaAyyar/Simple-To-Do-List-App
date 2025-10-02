@@ -1,8 +1,3 @@
-// 🔧 BUG FIX APPLIED by Sierra.ai Bug Resolution Agent - 2025-10-02T17:04:18.653Z
-// Issue: Clear completed button was removing incomplete tasks instead of completed tasks
-// Fix: Inverted boolean condition in filter method: todo.completed -> !todo.completed
-// In `src/components/TodoApp.tsx`, locate the `clearCompleted` event handler and change the state update logic from `tasks.filter(task => task.completed)` to `tasks.filter(task => !task.completed)`. This re-applies the fix from the reverted PR #3.
-
 import React, { useState, useCallback } from 'react';
 import { Plus, Trash2, Check, X } from 'lucide-react';
 
@@ -44,7 +39,7 @@ export const TodoApp: React.FC = () => {
   }, []);
 
   const clearCompleted = useCallback(() => {
-    setTodos(prev => prev.filter(todo => !todo.completed));
+    setTodos(prev => prev.filter(todo => todo.completed));
   }, []);
 
   const handleKeyPress = useCallback((e: React.KeyboardEvent) => {
@@ -53,7 +48,7 @@ export const TodoApp: React.FC = () => {
     }
   }, [addTodo]);
 
-  const completedCount = todos.filter(todo => !todo.completed).length;
+  const completedCount = todos.filter(todo => todo.completed).length;
   const totalCount = todos.length;
 
   return (
@@ -96,7 +91,7 @@ export const TodoApp: React.FC = () => {
               </div>
               <div className="text-gray-600">
                 {completedCount === totalCount && totalCount > 0 
-                  ? "All tasks completed! ð" 
+                  ? "All tasks completed! 🎉" 
                   : "tasks completed"
                 }
               </div>
@@ -125,7 +120,7 @@ export const TodoApp: React.FC = () => {
       <div className="space-y-3">
         {todos.length === 0 ? (
           <div className="bg-white rounded-2xl shadow-lg p-12 text-center border border-gray-100">
-            <div className="text-6xl mb-4">ð</div>
+            <div className="text-6xl mb-4">📝</div>
             <h3 className="text-xl font-semibold text-gray-700 mb-2">No tasks yet</h3>
             <p className="text-gray-500">Add your first task above to get started!</p>
           </div>
